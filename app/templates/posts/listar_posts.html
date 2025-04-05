@@ -6,6 +6,8 @@
         <a href="{{ url_for('posts.add_post') }}" class="button is-success"><i class="fa-solid fa-plus"></i> &nbsp;
             Agregar
             noticia</a>
+        <a href="{{url_for('index')}}" class="button is-link"><i class="fa-solid fa-person-walking-arrow-loop-left"></i> &nbsp;
+            Regresar</a>
         <br><br>
         {% for post in posts %}
         <div class="card">
