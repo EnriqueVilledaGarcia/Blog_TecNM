@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %} Blog de Noticias {% endblock %}
+{% block content %}
+<div class="columns">
+    <div class="column is-offset-3 is-6">
+        <a href="#" class="button is-success">
+            <i class="fa-solid fa-plus"></i> &nbsp; Agregar categoría
+        </a>
+        <a href="{{ url_for('index') }}" class="button is-link">
+            <i class="fa-solid fa-person-walking-arrow-loop-left"></i> &nbsp; Regresar
+        </a>
+        <br><br>
+        <table class="table is-striped is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>
+                        <a href="#"
+                            class="button is-small is-link is-outlined"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="#"
+                            class="button is-small is-danger is-outlined"><i class="fa-solid fa-trash"></i></a>
+
+
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

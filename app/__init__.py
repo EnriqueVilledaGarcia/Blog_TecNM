@@ -16,10 +16,11 @@ db = SQLAlchemy(app)
 
 #Importar los modelos para que SQLAlchemy los reconozca
 from app.models import Post
-
+from app.models import Category
 
 #Importar y registrar los blueprints
 from app.routes.post import posts_bp
+from app.routes.categories import categories_bp
 
 #Crear tablas si no existen.
 with app.app_context():
@@ -27,6 +28,7 @@ with app.app_context():
 
 
 app.register_blueprint(posts_bp, url_prefix='/posts')
+app.register_blueprint(categories_bp, url_prefix='/categories')
 
 
 @app.route('/')
