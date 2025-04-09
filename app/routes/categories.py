@@ -24,3 +24,27 @@ def add_category():
     #Aqui sigue si es GET
     categories = Category.query.all()
     return render_template('categories/create_category.html', categories=categories)
+
+#Actualizar categoria
+@categories_bp.route('/update/<int:id>', methods=['GET','POST'])
+def update_category(id):
+    category = Category.query.get(id)
+    if request.method == 'POST':
+        category.name = request.form['name']
+        db.session.commit()
+        return redirect(url_for('categories.listar_categorias'))
+    
+    categories = Category.query.all()
+    return render_template('categories/update_category.html', categories=categories, category=category)
+
+
+#Eliminar categoria
+
+#Eliminar post
+@categories_bp.route('/delete/<int:id>')
+def delete_category(id):
+    category = Category.query.get(id)
+    if category:
+        db.session.delete(category)
+        db.session.commit()
+    return redirect(url_for('categories.listar_categorias'))

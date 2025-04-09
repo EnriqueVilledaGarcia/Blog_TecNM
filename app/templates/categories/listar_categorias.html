@@ -1,41 +1,119 @@
 {% extends 'base.html' %}
 {% block title %} Blog de Noticias {% endblock %}
 {% block content %}
+<style>
+    .table-container {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .table {
+        width: 100%;
+        font-size: 1.05em;
+    }
+    
+    .table thead th {
+        background-color: #485fc7;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1em;
+        border: none;
+        padding: 0.9rem 1.2rem;
+    }
+    
+    .table thead th:first-child {
+        border-top-left-radius: 8px;
+    }
+    
+    .table thead th:last-child {
+        border-top-right-radius: 8px;
+    }
+    
+    .table tbody tr {
+        transition: all 0.2s ease;
+    }
+    
+    .table tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+    
+    .table td {
+        vertical-align: middle;
+        padding: 1rem 1.2rem;
+    }
+    
+    .main-buttons .button {
+        font-size: 1.05em;
+        padding: 0.8em 1.2em;
+    }
+    
+    .title-container {
+        margin-bottom: 2rem;
+        padding-bottom: 1.2rem;
+        border-bottom: 2px solid #f0f0f0;
+    }
+    
+    .title {
+        font-size: 1.8rem !important;
+    }
+    
+    .actions .button {
+        font-size: 1em;
+        padding: 0.6em 0.8em;
+        min-width: 40px;
+    }
+    
+    .fa-solid {
+        font-size: 1.1em;
+    }
+</style>
+
 <div class="columns">
-    <div class="column is-offset-3 is-6">
-        <a href="{{ url_for('categories.add_category') }}" class="button is-success">
-            <i class="fa-solid fa-plus"></i> &nbsp; Agregar categoría
-        </a>
-        <a href="{{ url_for('index') }}" class="button is-link">
-            <i class="fa-solid fa-person-walking-arrow-loop-left"></i> &nbsp; Regresar
-        </a>
-        <br><br>
-        <table class="table is-striped is-hoverable is-fullwidth">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for category in categories %}
-                <tr>
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.name }}</td>
-                    <td>
-                        <a href="#"
-                            class="button is-small is-link is-outlined"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a href="#"
-                            class="button is-small is-danger is-outlined"><i class="fa-solid fa-trash"></i></a>
-
-
-
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="column is-offset-2 is-8">
+        
+        <div class="main-buttons buttons mb-5">
+            <a href="{{ url_for('categories.add_category') }}" class="button is-success">
+                <i class="fa-solid fa-plus"></i> &nbsp; Agregar categoría
+            </a>
+            <a href="{{ url_for('index') }}" class="button is-link">
+                <i class="fa-solid fa-person-walking-arrow-loop-left"></i> &nbsp; Regresar
+            </a>
+        </div>
+        
+        <div class="table-container">
+            <table class="table is-striped is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr>
+                        <td class="has-text-weight-semibold">{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                        <td class="actions">
+                            <div class="buttons">
+                                <a href="{{ url_for('categories.update_category', id = category.id )}}"
+                                    class="button is-link is-outlined" title="Editar">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a href="{{ url_for('categories.delete_category', id = category.id )}}"
+                                    class="button is-danger is-outlined" title="Eliminar">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}
