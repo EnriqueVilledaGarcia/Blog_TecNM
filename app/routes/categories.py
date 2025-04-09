@@ -10,3 +10,17 @@ categories_bp = Blueprint ('categories',__name__)
 def listar_categorias():
     categories = Category.query.all()
     return render_template('categories/listar_categorias.html', categories=categories)
+
+@categories_bp.route('/new', methods=['GET', 'POST'])
+def add_category():
+    if request.method == 'POST':
+        name = request.form['name']
+        new_category = Category(name=name)
+        db.session.add(new_category)
+        db.session.commit()
+
+        return redirect(url_for('categories.listar_categorias'))
+    
+    #Aqui sigue si es GET
+    categories = Category.query.all()
+    return render_template('categories/create_category.html', categories=categories)
